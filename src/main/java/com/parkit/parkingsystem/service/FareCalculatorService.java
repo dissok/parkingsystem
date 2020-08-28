@@ -11,7 +11,7 @@ public class FareCalculatorService {
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
-
+        
         //On remplace les 2 instructions ci-dessous en commentaire par les 2 d'après
         //et passer le type de la variable de int --> long
 
