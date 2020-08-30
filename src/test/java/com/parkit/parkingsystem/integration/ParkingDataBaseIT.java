@@ -16,10 +16,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
@@ -82,7 +83,12 @@ public class ParkingDataBaseIT {
         System.out.println(ticket.getPrice());//Récupération du prix
         assertNotEquals(0, ticket.getPrice());//Vérification de la positivité du prix
         System.out.println(ticket.getOutTime());
-        assertNotNull(ticket.getOutTime());//Vérification que le out time associé est non null
+        //assertNotNull(ticket.getOutTime());//Vérification que le out time associé est non null
+        Calendar c = Calendar.getInstance();
+        c.setTime(ticket.getInTime());//Définition de la date de base ou d'entrée
+        c.add(Calendar.SECOND, 1);
+        //System.out.println(c.getTime());
+        assertEquals(c.getTime(), ticket.getOutTime());
 
     }
 
