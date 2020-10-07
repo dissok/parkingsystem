@@ -1,5 +1,8 @@
 package com.parkit.parkingsystem.model;
 
+import com.parkit.parkingsystem.dao.TicketDAO;
+//import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +13,21 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
+
+
+    //Définition des fonctions qui nous permettront de définir si récc ou pas
+    private Boolean reccuringVehicle = false;
+    //Getter
+    public Boolean getReccuringVehicle() {
+        //TicketDAO ticketPremier = new TicketDAO();
+        //return ticketPremier.getLastTickets(vehicleRegNumber);
+        return this.reccuringVehicle;
+    }
+    //Setter
+    public void setReccuringVehicle(Boolean reccuringVehicle) {
+        this.reccuringVehicle = reccuringVehicle;
+    }
+
 
     public int getId() {
         return id;

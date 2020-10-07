@@ -1,7 +1,13 @@
 package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
+import com.parkit.parkingsystem.constants.ParkingType;
+import com.parkit.parkingsystem.dao.TicketDAO;
+import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.parkit.parkingsystem.constants.Fare.FREE_TIME;
 
@@ -30,9 +36,16 @@ public class FareCalculatorService {
 
 
         if(duration <= FREE_TIME){
-
             duration = 0;
         }
+
+        //Condition sur l'application ou non du tarif de réccurence
+        //System.out.println(ticket.getVehicleRegNumber());
+        if(ticket.getReccuringVehicle()){
+            //ticket.setPrice(duration * 0.95 * Fare.CAR_RATE_PER_HOUR);
+            duration = duration * 0.95;
+        }
+
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
@@ -47,3 +60,4 @@ public class FareCalculatorService {
         }
     }
 }
+

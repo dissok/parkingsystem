@@ -64,7 +64,7 @@ public class ParkingDataBaseIT {
         assertEquals(1, ticket.getId());//Compare la valeur attendue à la valeur actuelle
         ParkingSpot parkingSpot = ticket.getParkingSpot();//Récupération de la place de parking associée au ticket
         //System.out.println(parkingSpot.isAvailable());//Vérification de la disponibilité de la place associée
-        //assertEquals(false, parkingSpot.isAvailable());//la valeur attendue à la valeur actuelle
+        //assertEquals(false, parkingSpot.isAvailable());//Compare la valeur attendue à la valeur actuelle
         assertFalse(parkingSpot.isAvailable());//ou le précédent assertEquals
     }
 
@@ -84,7 +84,5 @@ public class ParkingDataBaseIT {
         assertNotEquals(0, ticket.getPrice());//Vérification de la positivité du prix
         System.out.println(ticket.getOutTime());
         assertNotNull(ticket.getOutTime());//Vérification que le out time associé est non null
-
     }
-
 }

@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TicketDAO {
 
@@ -58,6 +60,10 @@ public class TicketDAO {
                 ticket.setPrice(rs.getDouble(3));
                 ticket.setInTime(rs.getTimestamp(4));
                 ticket.setOutTime(rs.getTimestamp(5));
+
+                //Définir/modifier le statut de réccurence d'un client
+                ticket.setReccuringVehicle(getLastTickets(vehicleRegNumber));
+
             }
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
@@ -85,5 +91,35 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+
+    public boolean getLastTickets(String vehicleRegNumber) {
+        Connection con = null;
+        Boolean Test1 = false;
+
+
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.GET_LAST_TICKETS);
+            //ID, VEHICLE_REG_NUMBER)
+            ps.setString(1,vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+            Boolean rsa = rs.next();
+            if(rsa){
+                System.out.println("numberOfLastTicketsFor7LastDays" + " is" + " " + rs.getInt("nbT"));
+                if (rs.getInt("nbT") >= 2)
+                    Test1 = true;
+                else Test1 = false;
+            }
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        }catch (Exception ex){
+            logger.error("Error of looking for last tickets",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
+        }
+
+        return Test1;
     }
 }
